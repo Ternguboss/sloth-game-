@@ -15,6 +15,13 @@ symbol_count ={
     "D": 8,
 }
 
+symbol_value ={
+    "A": 5,
+    "B": 4,
+    "C": 3,
+    "D": 2,
+}
+
 def sloth_spin( rows , cols ,symbols):
     all_symbols = []
     for symbol , symbol_count in symbols.items():
@@ -33,6 +40,23 @@ def sloth_spin( rows , cols ,symbols):
         columns.append(column)
 
     return columns
+
+def check_win(columns ,lines ,bet, value ):
+    winnings = 0
+    winning_lines = []
+    for lines in range (lines):
+        symbol = columns[0][lines]
+        for column in columns:
+            symbol_to_check = column[lines]
+            if symbol != symbol_to_check :
+                break
+        else:
+            winnings += values[symbol] * bet
+            winning_lines += value[symbol] * bet
+            winning_lines.append(lines +1 )
+
+    return winnings, winning_lines,
+
 
 def print_sloth_machine(columns):
     for row in range (len(columns[0])):
@@ -103,5 +127,8 @@ def main():
 
     slots =  sloth_spin (ROWS ,COLS , symbol_count )
     print_sloth_machine(slots)
+    winnings, winning_lines =check_win(slots,lines,bet, symbol_value )
+    print(f"you won ${winnings}")
+    print(f"you won on", *winning_lines)
     
 main()      
